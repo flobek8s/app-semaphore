@@ -18,7 +18,7 @@ jobs:
       - name: Get version from Chart.yaml
         id: version
         run: |
-          VERSION=$(grep 'image.tag:' values.yaml | awk '{print $2}' | tr -d '"')
+          VERSION=$(yq eval '.image.tag' values.yaml)
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Get App Name from Chart.yaml
