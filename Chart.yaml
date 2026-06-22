@@ -1,0 +1,6 @@
+apiVersion: v2
+name: semaphore
+description: Self-hosted Semaphore UI for Ansible automation (homelab)
+type: application
+version: 0.1.0
+appVersion: "2.18.12"

@@ -1,0 +1,53 @@
+namespace: semaphore
+
+image:
+  repository: harbor.phink8s.com/library/semaphore-custom
+  tag: v2.18.12-1
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: true
+  className: traefik
+  host: semaphore.phink8s.com
+  tls:
+    secretName: wildcard-phink8s.com-tls
+
+persistence:
+  enabled: true
+  storageClassName: longhorn
+  size: 1Gi
+  mountPath: /etc/semaphore
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: "1"
+    memory: 512Mi
+
+# --- Application config ---
+env:
+  SEMAPHORE_DB_DIALECT: mysql
+  SEMAPHORE_DB_HOST: mysql.databases.svc.cluster.local
+  SEMAPHORE_DB_PORT: "3306"
+  SEMAPHORE_DB: semaphore
+  SEMAPHORE_ADMIN: admin
+  SEMAPHORE_ADMIN_NAME: Administrator
+  SEMAPHORE_ADMIN_EMAIL: admin@lewiscrib.com
+  SEMAPHORE_PLAYBOOK_PATH: /tmp/semaphore
+  KUBECONFIG: /etc/semaphore/secrets/kubeconfig
+  TALOSCONFIG: /etc/semaphore/secrets/talosconfig
+
+# --- Secret references ---
+existingSecrets:
+  adminPassword: semaphore-admin
+  db: semaphore-db
+  accessKeyEncryption: semaphore-enc-key
+  clusterCreds: semaphore-cluster-creds
