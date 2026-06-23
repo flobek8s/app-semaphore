@@ -17,6 +17,7 @@ spec:
       labels:
         {{- include "semaphore.selectorLabels" . | nindent 8 }}
     spec:
+      enableServiceLinks: false
       securityContext:
         runAsUser: 1001
         runAsGroup: 0
@@ -29,6 +30,8 @@ spec:
             - name: http
               containerPort: 3000
           env:
+            - name: SEMAPHORE_PORT
+              value: "3000"
             {{- range $k, $v := .Values.env }}
             - name: {{ $k }}
               value: {{ $v | quote }}
