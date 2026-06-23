@@ -11,5 +11,6 @@ spec:
     - name: http
       port: {{ .Values.service.port }}
       targetPort: http
+      protocol: TCP
   selector:
     {{- include "semaphore.selectorLabels" . | nindent 4 }}
