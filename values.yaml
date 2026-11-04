@@ -2,7 +2,7 @@ namespace: semaphore
 
 image:
   repository: harbor.phink8s.com/library/semaphore
-  tag: v2.19.18-1
+  tag: v2.19.17-1
   pullPolicy: IfNotPresent
 
 replicaCount: 1

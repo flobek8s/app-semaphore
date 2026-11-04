@@ -3,4 +3,4 @@ name: semaphore
 description: Self-hosted Semaphore UI for Ansible automation (homelab)
 type: application
 version: 0.1.3
-appVersion: "2.19.18"
+appVersion: "2.19.17"
